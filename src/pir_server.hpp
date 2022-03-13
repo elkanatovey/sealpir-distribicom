@@ -34,7 +34,7 @@ class PIRServer {
    
 
 
-  private:
+  protected:
     seal::EncryptionParameters enc_params_; // SEAL parameters
     PirParams pir_params_;              // PIR parameters
     std::unique_ptr<Database> db_;
@@ -47,6 +47,7 @@ class PIRServer {
     //This is only uesd for simple_query
     seal::Ciphertext one_;
 
+  private:
     void multiply_power_of_X(const seal::Ciphertext &encrypted, seal::Ciphertext &destination,
                              std::uint32_t index);
 };
