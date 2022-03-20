@@ -129,6 +129,7 @@ int main(int argc, char *argv[]) {
     // Serialize reply (useful for sending over the network)
     int reply_size = server.serialize_reply(reply, server_stream);
 
+    reply = client.deserialize_reply(server_stream);
     // Measure response extraction
     auto time_decode_s = chrono::high_resolution_clock::now();
     vector<uint8_t> elems = client.decode_reply(reply, offset);

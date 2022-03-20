@@ -35,7 +35,8 @@ class PIRClient {
     seal::Ciphertext get_one();
 
     seal::Plaintext replace_element(seal::Plaintext pt, std::vector<std::uint64_t> new_element, std::uint64_t offset);
-   
+
+    PirReply deserialize_reply(stringstream &stream);
 
   private:
     seal::EncryptionParameters enc_params_;

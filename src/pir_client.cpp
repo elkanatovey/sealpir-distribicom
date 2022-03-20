@@ -273,3 +273,13 @@ Ciphertext PIRClient::get_one(){
     }
     return ct;
 }
+
+PirReply PIRClient::deserialize_reply(std::stringstream &stream) {
+    std::vector< seal::Ciphertext> reply;
+    while (stream.rdbuf()->in_avail()) {
+        seal::Ciphertext c;
+        c.load(*context_, stream);
+        reply.push_back(c);
+    }
+    return reply;
+}
