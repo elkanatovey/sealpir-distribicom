@@ -13,8 +13,8 @@ public:
 
   // NOTE: server takes over ownership of db and frees it when it exits.
   // Caller cannot free db
-  void set_database(std::unique_ptr<std::vector<seal::Plaintext>> &&db);
-  void set_database(const std::unique_ptr<const std::uint8_t[]> &bytes,
+  void set_database(std::shared_ptr<std::vector<seal::Plaintext>> &&db);
+  void set_database(const std::shared_ptr<const std::uint8_t[]> &bytes,
                     std::uint64_t ele_num, std::uint64_t ele_size);
   void preprocess_database();
 
@@ -40,7 +40,7 @@ public:
 protected:
   seal::EncryptionParameters enc_params_; // SEAL parameters
   PirParams pir_params_;                  // PIR parameters
-  std::unique_ptr<Database> db_;
+  std::shared_ptr<Database> db_;
   bool is_db_preprocessed_;
   std::map<int, seal::GaloisKeys> galoisKeys_;
   std::unique_ptr<seal::Evaluator> evaluator_;

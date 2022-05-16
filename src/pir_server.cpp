@@ -27,7 +27,7 @@ void PIRServer::preprocess_database() {
 }
 
 // Server takes over ownership of db and will free it when it exits
-void PIRServer::set_database(unique_ptr<vector<Plaintext>> &&db) {
+void PIRServer::set_database(shared_ptr<vector<Plaintext>> &&db) {
   if (!db) {
     throw invalid_argument("db cannot be null");
   }
@@ -36,7 +36,7 @@ void PIRServer::set_database(unique_ptr<vector<Plaintext>> &&db) {
   is_db_preprocessed_ = false;
 }
 
-void PIRServer::set_database(const std::unique_ptr<const uint8_t[]> &bytes,
+void PIRServer::set_database(const std::shared_ptr<const uint8_t[]> &bytes,
                              uint64_t ele_num, uint64_t ele_size) {
 
   uint32_t logt = floor(log2(enc_params_.plain_modulus().value()));
@@ -54,7 +54,7 @@ void PIRServer::set_database(const std::unique_ptr<const uint8_t[]> &bytes,
 
   assert(num_of_plaintexts <= matrix_plaintexts);
 
-  auto result = make_unique<vector<Plaintext>>();
+  auto result = make_shared<vector<Plaintext>>();
   result->reserve(matrix_plaintexts);
 
   uint64_t ele_per_ptxt = pir_params_.elements_per_plaintext;
