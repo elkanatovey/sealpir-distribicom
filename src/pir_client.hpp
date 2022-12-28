@@ -4,7 +4,6 @@
 #include <memory>
 #include <vector>
 
-using namespace std;
 
 class PIRClient {
 public:
@@ -38,7 +37,7 @@ public:
 
     seal::Plaintext replace_element(seal::Plaintext pt, std::vector<std::uint64_t> new_element, std::uint64_t offset);
 
-    PirReply deserialize_reply(stringstream &stream);
+    PirReply deserialize_reply(std::stringstream &stream);
 
 private:
   seal::EncryptionParameters enc_params_;
@@ -51,8 +50,8 @@ private:
   std::unique_ptr<seal::BatchEncoder> encoder_;
   std::shared_ptr<seal::SEALContext> context_;
 
-  vector<uint64_t> indices_; // the indices for retrieval.
-  vector<uint64_t> inverse_scales_;
+  std::vector<uint64_t> indices_; // the indices for retrieval.
+  std::vector<uint64_t> inverse_scales_;
 
   friend class PIRServer;
 };
